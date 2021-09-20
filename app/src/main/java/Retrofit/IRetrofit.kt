@@ -17,12 +17,12 @@ interface IRetrofit {
     @FormUrlEncoded
     @POST("/Register")
     fun registerRequest(
-        @Field("name") Rname: String,
-        @Field("PhoneNumber") RPhoneNumber: String,
-        @Field("Email") REmail: String,
-        @Field("ID") RId: String,
-        @Field("Password") RPassword: String,
-        @Field("PasswordCon") RPasswordCon: String
+        @Field("RName") RName: String,
+        @Field("RPhoneNumber") RPhoneNumber: String,
+        @Field("REmail") REmail: String,
+        @Field("RId") RId: String,
+        @Field("RPassword") RPassword: String,
+        @Field("RPasswordCon") RPasswordCon: String
     ): Call<JsonElement>
 
 }

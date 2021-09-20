@@ -2,6 +2,7 @@ package com.example.loginproject
 
 import Retrofit.LoginResponse
 import Retrofit.RetrofitManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,11 @@ class MainActivity : AppCompatActivity() {
             val username: String = binding.idInput.text.toString()
             val password: String = binding.passwordInput.text.toString()
             loginRequest(username, password)
+        }
+
+        binding.registerButton.setOnClickListener{
+            val nextIntent = Intent(this, RegisterActivity::class.java)
+            startActivity(nextIntent)
         }
 
     }

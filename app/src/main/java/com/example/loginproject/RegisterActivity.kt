@@ -17,12 +17,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
 
-        val Rname: String = binding.nameInput.toString()
-        val RPhoneNumber: String = binding.phoneInput.toString()
-        val REmail:String = binding.emailInput.toString()
-        val Rid:String = binding.idRegisterInput.toString()
-        val RPassword:String = binding.passwordRegisterInput.toString()
-        val RPasswordCon: String = binding.passwordRegisterConformInput.toString()
+
 
 
         //중복되눈 아이디 찾기
@@ -31,6 +26,12 @@ class RegisterActivity : AppCompatActivity() {
         }
         //회원가입하기
         binding.registerConformButton.setOnClickListener{
+            val Rname: String = binding.nameInput.text.toString()
+            val RPhoneNumber: String = binding.phoneInput.text.toString()
+            val REmail:String = binding.emailInput.text.toString()
+            val Rid:String = binding.idRegisterInput.text.toString()
+            val RPassword: String = binding.passwordRegisterInput.text.toString()
+            val RPasswordCon: String = binding.passwordRegisterConformInput.text.toString()
             registerRequest(Rname, RPhoneNumber, REmail, Rid,RPassword, RPasswordCon)
         }
 
@@ -67,11 +68,6 @@ class RegisterActivity : AppCompatActivity() {
         }else if(RPasswordCon.isEmpty()){
             dialogBuilder.setTitle("알림")
             dialogBuilder.setMessage("비밀번화 확인란을 입력해주세요")
-            dialogBuilder.setPositiveButton("확인", null)
-            dialogBuilder.show()
-        }else if(RPasswordCon != RPassword){
-            dialogBuilder.setTitle("알림")
-            dialogBuilder.setMessage("비밀번호가 일치하지 않습니다.")
             dialogBuilder.setPositiveButton("확인", null)
             dialogBuilder.show()
         }else {
