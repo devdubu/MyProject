@@ -4,6 +4,7 @@ import Retrofit.LoginResponse
 import Retrofit.RetrofitManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.example.loginproject.databinding.ActivityMainBinding
@@ -18,6 +19,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.loginButton.setOnClickListener{
+            Log.d(TAG, "MainActivity - onCreate: ");
+            val username: String = binding.idInput.text.toString()
+            val password: String = binding.passwordInput.text.toString()
+            loginRequest(username, password)
+        }
 
     }
     fun loginRequest(username: String, password: String){

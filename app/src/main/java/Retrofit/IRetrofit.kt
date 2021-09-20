@@ -14,4 +14,15 @@ interface IRetrofit {
         @Field("password") password: String
     ): Call<JsonElement>
     //이 부분을 수정할라고 합니당
+    @FormUrlEncoded
+    @POST("/Register")
+    fun registerRequest(
+        @Field("name") Rname: String,
+        @Field("PhoneNumber") RPhoneNumber: String,
+        @Field("Email") REmail: String,
+        @Field("ID") RId: String,
+        @Field("Password") RPassword: String,
+        @Field("PasswordCon") RPasswordCon: String
+    ): Call<JsonElement>
+
 }
