@@ -7,7 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RetrofitManager {
-    private val BASE_URL = "http://172.30.1.31:5000"
+    private val BASE_URL = "http://192.168.35.20:8080"
     private val TAG: String = "로그"
 
     companion object{

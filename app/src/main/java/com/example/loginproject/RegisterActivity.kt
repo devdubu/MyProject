@@ -1,13 +1,15 @@
 package com.example.loginproject
 
-import Retrofit.RegisterResponse
 import Retrofit.RetrofitManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.HandlerCompat.postDelayed
+import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import com.example.loginproject.databinding.ActivityRegisterBinding
+import retrofit2.HttpException
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
@@ -17,7 +19,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
 
-
+        var dialogBuilder = AlertDialog.Builder(this@RegisterActivity)
 
 
         //중복되눈 아이디 찾기
@@ -33,6 +35,29 @@ class RegisterActivity : AppCompatActivity() {
             val RPassword: String = binding.passwordRegisterInput.text.toString()
             val RPasswordCon: String = binding.passwordRegisterConformInput.text.toString()
             registerRequest(Rname, RPhoneNumber, REmail, Rid,RPassword, RPasswordCon)
+
+            RetrofitManager.instance.register(Rname=Rname,RPhoneNumber=RPhoneNumber,REmail=REmail,Rid = Rid,RPassword = RPassword,RPasswordCon = RPasswordCon, completion = {
+                    RegisterResponse, response ->
+                when(RegisterResponse){
+                    Retrofit.RegisterResponse.FAIL -> {
+                        dialogBuilder.setTitle("알림")
+                        dialogBuilder.setMessage("회원가입 실패")
+                        dialogBuilder.setPositiveButton("확인", null)
+                        dialogBuilder.show()
+                    }
+
+                    Retrofit.RegisterResponse.OK -> {
+                        dialogBuilder.setTitle("알림")
+                        dialogBuilder.setMessage("회원가입 성공")
+
+                        dialogBuilder.show()
+                        Handler().postDelayed({
+                            finish()
+                        },1000L)
+
+                    }
+                }
+            })
         }
 
 
@@ -70,27 +95,10 @@ class RegisterActivity : AppCompatActivity() {
             dialogBuilder.setMessage("비밀번화 확인란을 입력해주세요")
             dialogBuilder.setPositiveButton("확인", null)
             dialogBuilder.show()
-        }else {
-            RetrofitManager.instance.register(Rname=Rname,RPhoneNumber=RPhoneNumber,REmail=REmail,Rid = Rid,RPassword = RPassword,RPasswordCon = RPasswordCon, completion = {
-                    RegisterResponse, response ->
-                when(RegisterResponse){
-                    Retrofit.RegisterResponse.FAIL -> {
-                        dialogBuilder.setTitle("알림")
-                        dialogBuilder.setMessage("회원가입 실패")
-                        dialogBuilder.setPositiveButton("확인", null)
-                        dialogBuilder.show()
-                    }
-
-                    Retrofit.RegisterResponse.OK -> {
-                        dialogBuilder.setTitle("알림")
-                        dialogBuilder.setMessage("회원가입 성공")
-                        dialogBuilder.setPositiveButton("확인", null)
-                        dialogBuilder.show()
-                    }
-                }
-            })
         }
     }
+
+
 
 
 }
